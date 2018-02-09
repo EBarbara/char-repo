@@ -1,10 +1,10 @@
 <?php
 $url = parse_url(getenv("DATABASE_URL"));
 
-$host = $url["host"];
-$port = $url["port"];
-$username = $url["user"];
-$password = $url["pass"];
+$host = (array_key_exists("host", $url) ? $url["host"] : null);
+$port = (array_key_exists("port", $url) ? $url["port"] : null);
+$username = (array_key_exists("user", $url) ? $url["user"] : null);
+$password = (array_key_exists("pass", $url) ? $url["pass"] : null);
 $database = substr($url["path"], 1);
 
 return [
@@ -65,14 +65,14 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             //'host' => env('DB_HOST', '127.0.0.1'),
-            'host' => env('DB_HOST', $host),
             //'port' => env('DB_PORT', '5432'),
-            'port' => env('DB_PORT', $port),
             //'database' => env('DB_DATABASE', 'forge'),
-            'database' => env('DB_DATABASE', $database),
             //'username' => env('DB_USERNAME', 'forge'),
-            'username' => env('DB_USERNAME', $username),
             //'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_HOST', $host),
+            'port' => env('DB_PORT', $port),
+            'database' => env('DB_DATABASE', $database),
+            'username' => env('DB_USERNAME', $username),
             'password' => env('DB_PASSWORD', $password),
             'charset' => 'utf8',
             'prefix' => '',
