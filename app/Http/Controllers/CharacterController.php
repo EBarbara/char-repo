@@ -33,8 +33,13 @@ class CharacterController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        var_dump($_POST);
-        die();
+        $character = new Character();
+        $character->name = $request->name;
+        $character->race = $request->race;
+        $character->class = $request->class;
+        $character->level = 1;
+        $character->save();
+        return view('character.show', ['character' => $character]);
     }
 
     /**
@@ -44,7 +49,6 @@ class CharacterController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function show(Character $character){
-        $character = Character::find($id);
         return view('character.show', ['character' => $character]);
     }
 

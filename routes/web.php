@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('character');
 
 Route::resource('character', 'CharacterController');
+Route::resource('race', 'RaceController');

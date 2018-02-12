@@ -45,8 +45,17 @@
                         <td>{{ $character->class }}</td>
                         <td>{{ $character->level }}</td>
                         <td>
-                            <i class="material-icons md-black md-24" data-toggle="tooltip" data-placement="bottom" title="edit">edit</i>
-                            <i class="material-icons md-black md-24" data-toggle="tooltip" data-placement="bottom" title="delete">delete</i>
+                            <div class="side">
+                                <a href="character/{{ $character->id }}/edit">
+                                    <i class="material-icons md-black md-24" data-toggle="tooltip" data-placement="bottom" title="edit">edit</i>
+                                </a>
+
+                                {!! Form::open(['method' => 'DELETE', 'route' => ['character.destroy', $character->id]]) !!}
+                                <a href="">
+                                    <i class="material-icons md-black md-24" data-toggle="tooltip" data-placement="bottom" title="delete">delete</i>
+                                </a>
+                                {!! Form::close() !!}
+                            </div>
                         </td>
                     </tr>
                 @endforeach
@@ -78,4 +87,7 @@
 @section('css')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        .side {display: inline-block; margin: 0 10px;}
+    </style>
 @stop
