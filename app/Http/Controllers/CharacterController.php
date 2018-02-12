@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Character;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CharacterController extends Controller{
     /**
@@ -78,11 +79,17 @@ class CharacterController extends Controller{
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Character  $character
+     * @param  \App\Character $character
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function destroy(Character $character)
-    {
-        //
+    public function destroy(Character $character){
+        var_dump($character);
+        die();
+
+        $character->delete();
+
+        Session::flash('message', 'Character deleted');
+        return Redirect::to("character.index");
     }
 }

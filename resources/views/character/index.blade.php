@@ -45,17 +45,24 @@
                         <td>{{ $character->class }}</td>
                         <td>{{ $character->level }}</td>
                         <td>
-                            <div class="side">
+                            <ul class="side">
+                                <li class="side">
                                 <a href="character/{{ $character->id }}/edit">
                                     <i class="material-icons md-black md-24" data-toggle="tooltip" data-placement="bottom" title="edit">edit</i>
                                 </a>
+                                </li>
 
-                                {!! Form::open(['method' => 'DELETE', 'route' => ['character.destroy', $character->id]]) !!}
-                                <a href="">
+                                <li class="side">
+                                {!! Form::open(['method' => 'DELETE',
+                                    'route' => ['character.destroy', $character->id],
+                                    'id' => 'form-delete-character-' . $character->id]) !!}
+                                <a href="" class="data-delete"
+                                    data-form="characters-{{ $character->id }}">
                                     <i class="material-icons md-black md-24" data-toggle="tooltip" data-placement="bottom" title="delete">delete</i>
                                 </a>
                                 {!! Form::close() !!}
-                            </div>
+                                </li>
+                            </ul>
                         </td>
                     </tr>
                 @endforeach
@@ -80,6 +87,14 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#characters').DataTable();
+        });
+
+        $(function () {
+            $('.data-delete').on('click', function (e) {
+                if(!confirm('Are you sure you want to delete?')) return;
+                e.preventDefault();
+                $('#form-delete-' + $(this).data('form')).submit;
+            });
         });
     </script>
 @stop
