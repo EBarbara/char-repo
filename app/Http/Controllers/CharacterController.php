@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class CharacterController extends Controller{
+
     /**
      * Display a listing of the resource.
      *
@@ -34,6 +35,9 @@ class CharacterController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+        var_dump($request);
+        die();
+
         $character = new Character();
         $character->name = $request->name;
         $character->race = $request->race;
@@ -46,10 +50,11 @@ class CharacterController extends Controller{
     /**
      * Display the specified resource.
      *
-     * @param  \App\Character  $character
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Character $character){
+    public function show(int $id){
+        $character = Character::findOrFail($id);
         return view('character.show', ['character' => $character]);
     }
 
@@ -59,8 +64,7 @@ class CharacterController extends Controller{
      * @param  \App\Character  $character
      * @return \Illuminate\Http\Response
      */
-    public function edit(Character $character)
-    {
+    public function edit(Character $character){
         //
     }
 
@@ -71,25 +75,21 @@ class CharacterController extends Controller{
      * @param  \App\Character  $character
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Character $character)
-    {
+    public function update(Request $request, Character $character){
         //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Character $character
+     * @param int $id
      * @return \Illuminate\Http\Response
-     * @throws \Exception
      */
-    public function destroy(Character $character){
-        var_dump($character);
-        die();
-
+    public function destroy(int $id){
+        $character = Character::findOrFail($id);
         $character->delete();
 
         Session::flash('message', 'Character deleted');
-        return Redirect::to("character.index");
+        return $this->index();
     }
 }

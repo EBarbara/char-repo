@@ -17,7 +17,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('character');
+Route::get('/home', 'HomeController@index');
 
-Route::resource('character', 'CharacterController');
+Route::get('/character',                'CharacterController@index')    ->name('character.index');
+Route::get('/character/new',            'CharacterController@create')   ->name('character.create');
+Route::post('/character/new',           'CharacterController@store')    ->name('character.save');
+Route::get('/character/{id}',           'CharacterController@show')     ->name('character.view');
+Route::get('/character/{id}/edit',      'CharacterController@edit')     ->name('character.edit');
+Route::post('/character/{id}/edit',     'CharacterController@update')   ->name('character.update');
+Route::get('/character/{id}/delete',    'CharacterController@destroy')  ->name('character.delete');
+
 Route::resource('race', 'RaceController');
